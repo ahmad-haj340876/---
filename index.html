@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>مطعم غصن الزيتون</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Tahoma,Arial,sans-serif;
+    background:#111;
+    color:#fff;
+    padding-bottom:80px;
+}
+
+/* ===== الهيدر ===== */
+
+header{
+    height:260px;
+    background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.85)),
+    url("https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80")
+    center/cover;
+    
+    display:flex;
+    align-items:flex-end;
+    padding:25px 20px;
+}
+
+.restaurant-info h1{
+    color:#d6aa55;
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.restaurant-info p{
+    color:#ddd;
+    font-size:14px;
+}
+
+/* ===== الأزرار ===== */
+
+.buttons{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.btn{
+    border:0;
+    border-radius:10px;
+    padding:10px 15px;
+    text-decoration:none;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.whatsapp{
+    background:#25D366;
+    color:white;
+}
+
+.location{
+    background:#d6aa55;
+    color:#111;
+}
+
+/* ===== الأقسام ===== */
+
+.categories{
+    display:flex;
+    overflow-x:auto;
+    gap:10px;
+    padding:18px;
+    scrollbar-width:none;
+}
+
+.categories::-webkit-scrollbar{
+    display:none;
+}
+
+.category{
+    white-space:nowrap;
+    background:#222;
+    color:#ddd;
+    border:1px solid #333;
+    padding:10px 17px;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.category.active{
+    background:#d6aa55;
+    color:#111;
+}
+
+/* ===== العنوان ===== */
+
+.section-title{
+    padding:10px 20px 15px;
+    color:#d6aa55;
+    font-size:22px;
+}
+
+/* ===== المنتجات ===== */
+
+.menu{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    padding:0 15px;
+}
+
+.card{
+    background:#1c1c1c;
+    border-radius:15px;
+    overflow:hidden;
+    border:1px solid #292929;
+}
+
+.card-image{
+    height:140px;
+    background-size:cover;
+    background-position:center;
+}
+
+.card-content{
+    padding:12px;
+}
+
+.card h3{
+    font-size:17px;
+    margin-bottom:6px;
+}
+
+.description{
+    color:#999;
+    font-size:12px;
+    line-height:1.5;
+    height:38px;
+}
+
+.price{
+    color:#d6aa55;
+    font-size:17px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.add{
+    width:100%;
+    border:0;
+    background:#d6aa55;
+    color:#111;
+    padding:9px;
+    border-radius:8px;
+    margin-top:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* ===== معلومات المطعم ===== */
+
+.info{
+    margin:25px 15px;
+    background:#1c1c1c;
+    border-radius:15px;
+    padding:20px;
+}
+
+.info h2{
+    color:#d6aa55;
+    margin-bottom:15px;
+}
+
+.info p{
+    color:#bbb;
+    margin:10px 0;
+}
+
+/* ===== السلة ===== */
+
+.cart{
+    position:fixed;
+    bottom:0;
+    right:0;
+    left:0;
+    height:65px;
+    background:#191919;
+    border-top:1px solid #333;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 18px;
+    z-index:100;
+}
+
+.cart-info{
+    color:#ddd;
+}
+
+.cart-info strong{
+    color:#d6aa55;
+}
+
+.order{
+    background:#25D366;
+    color:white;
+    border:0;
+    border-radius:10px;
+    padding:12px 18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* ===== الهاتف ===== */
+
+@media(max-width:500px){
+
+    .menu{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .card-image{
+        height:120px;
+    }
+
+    .restaurant-info h1{
+        font-size:25px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== معلومات المطعم ===== -->
+
+<header>
+
+<div class="restaurant-info">
+
+<h1>مطعم غصن الزيتون</h1>
+
+<p>أشهى المأكولات الشرقية والغربية</p>
+
+<div class="buttons">
+
+<a class="btn whatsapp"
+href="https://wa.me/963912345678"
+target="_blank">
+
+واتساب
+
+</a>
+
+<a class="btn location"
+href="https://maps.google.com/?q=Damascus"
+target="_blank">
+
+الموقع
+
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+
+<!-- ===== الأقسام ===== -->
+
+<div class="categories">
+
+<div class="category active" onclick="filterMenu('all',this)">
+الكل
+</div>
+
+<div class="category" onclick="filterMenu('pizza',this)">
+بيتزا
+</div>
+
+<div class="category" onclick="filterMenu('grill',this)">
+مشاوي
+</div>
+
+<div class="category" onclick="filterMenu('appetizer',this)">
+مقبلات
+</div>
+
+<div class="category" onclick="filterMenu('dessert',this)">
+حلويات
+</div>
+
+<div class="category" onclick="filterMenu('drink',this)">
+مشروبات
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+قائمة الطعام
+</h2>
+
+
+<!-- ===== المنتجات ===== -->
+
+<div class="menu" id="menu">
+
+
+<!-- بيتزا -->
+
+<div class="card" data-category="pizza">
+
+<div class="card-image"
+style="background-image:url('https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=700&q=80')">
+</div>
+
+<div class="card-content">
+
+<h3>بيتزا مارغريتا</h3>
+
+<p class="description">
+صلصة طماطم، جبنة موزاريلا وريحان
+</p>
+
+<div class="price">
+65,000 ل.س
+</div>
+
+<button class="add" onclick="addItem('بيتزا مارغريتا',65000)">
++ أضف للطلب
+</button>
+
+</div>
+</div>
+
+
+<div class="card" data-category="pizza">
+
+<div class="card-image"
+style="background-image:url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=700&q=80')">
+</div>
+
+<div class="card-content">
+
+<h3>بيتزا بيبروني</h3>
+
+<p class="description">
+جبنة موزاريلا وشرائح بيبروني
+</p>
+
+<div class="price">
+85,000 ل.س
+</div>
+
+<button class="add" onclick="addItem('بيتزا بيبروني',85000)">
++ أضف للطلب
+</button>
+
+</div>
+</div>
+
+
+<!-- مشاوي -->
+
+<div class="card" data-category="grill">
+
+<div class="card-image"
+style="background-image:url('https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80')">
+</div>
+
+<div class="card-content">
+
+<h3>مشاوي مشكلة</h3>
+
+<p class="description">
+كباب، شيش طاووق، لحم مشوي
+</p>
+
+<div class="price">
+150,000 ل.س
+</div>
+
+<button class="add" onclick="addItem('مشاوي مشكلة',150000)">
++ أضف للطلب
+</button>
+
+</div>
+</div>
+
+
+<!-- مقبلات -->
+
+<div class="card" data-category="appetizer">
+
+<div class="card-image"
+style="background-image:url('https://images.unsplash.com/photo-1577805947697-89e18249d767?auto=format&fit=crop&w=700&q=80')">
+</div>
+
+<div class="card-content">
+
+<h3>حمص</h3>
+
+<p class="description">
+حمص بالطحينة وزيت الزيتون
+</p>
+
+<div class="price">
+30,000 ل.س
+</div>
+
+<button class="add" onclick="addItem('حمص',30000)">
++ أضف للطلب
+</button>
+
+</div>
+</div>
+
+
+<!-- حلويات -->
+
+<div class="card" data-category="dessert">
+
+<div class="card-image"
+style="background-image:url('https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=700&q=80')">
+</div>
+
+<div class="card-content">
+
+<h3>تشيز كيك</h3>
+
+<p class="description">
+تشيز كيك بالفراولة
+</p>
+
+<div class="price">
+45,000 ل.س
+</div>
+
+<button class="add" onclick="addItem('تشيز كيك',45000)">
++ أضف للطلب
+</button>
+
+</div>
+</div>
+
+
+<!-- مشروب -->
+
+<div class="card" data-category="drink">
+
+<div class="card-image"
+style="background-image:url('https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=700&q=80')">
+</div>
+
+<div class="card-content">
+
+<h3>عصير برتقال</h3>
+
+<p class="description">
+عصير برتقال طبيعي طازج
+</p>
+
+<div class="price">
+25,000 ل.س
+</div>
+
+<button class="add" onclick="addItem('عصير برتقال',25000)">
++ أضف للطلب
+</button>
+
+</div>
+</div>
+
+</div>
+
+
+<!-- ===== معلومات المطعم ===== -->
+
+<div class="info">
+
+<h2>
+معلومات المطعم
+</h2>
+
+<p>🕘 ساعات العمل: 9 صباحاً - 12 ليلاً</p>
+
+<p>📍 دمشق - سوريا</p>
+
+<p>📞 0912345678</p>
+
+<p>🚚 خدمة توصيل متوفرة</p>
+
+</div>
+
+
+<!-- ===== السلة ===== -->
+
+<div class="cart">
+
+<div class="cart-info">
+
+الطلبات:
+<strong id="count">0</strong>
+
+<br>
+
+المجموع:
+<strong id="total">0</strong> ل.س
+
+</div>
+
+<button class="order" onclick="sendOrder()">
+
+اطلب عبر واتساب
+
+</button>
+
+</div>
+
+
+<script>
+
+let count = 0;
+let total = 0;
+let items = [];
+
+
+/* إضافة منتج */
+
+function addItem(name,price){
+
+count++;
+
+total += price;
+
+items.push(name);
+
+document.getElementById("count").innerText = count;
+
+document.getElementById("total").innerText =
+total.toLocaleString();
+
+}
+
+
+/* فلترة الأقسام */
+
+function filterMenu(category,button){
+
+let cards =
+document.querySelectorAll(".card");
+
+let buttons =
+document.querySelectorAll(".category");
+
+buttons.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+button.classList.add("active");
+
+
+cards.forEach(card=>{
+
+if(category === "all"){
+
+card.style.display = "block";
+
+}
+
+else if(card.dataset.category === category){
+
+card.style.display = "block";
+
+}
+
+else{
+
+card.style.display = "none";
+
+}
+
+});
+
+}
+
+
+/* إرسال الطلب */
+
+function sendOrder(){
+
+if(items.length === 0){
+
+alert("أضف المنتجات أولاً");
+
+return;
+
+}
+
+let message =
+"مرحباً، أريد طلب:%0A%0A";
+
+items.forEach((item,index)=>{
+
+message +=
+(index+1) + "- " + item + "%0A";
+
+});
+
+message +=
+"%0Aالمجموع: " +
+total.toLocaleString() +
+" ل.س";
+
+
+window.open(
+"https://wa.me/963912345678?text=" + message,
+"_blank"
+);
+
+}
+
+</script>
+
+</body>
+</html>
